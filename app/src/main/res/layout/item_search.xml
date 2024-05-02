@@ -5,6 +5,40 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="200dp"
+        android:layout_height="3dp"
+        android:background="#D3D3D3"
+        app:layout_constraintBottom_toTopOf="@+id/iv_item"
+        app:layout_constraintEnd_toEndOf="@+id/iv_item"
+        app:layout_constraintStart_toStartOf="@+id/iv_item" />
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="3dp"
+        android:background="#D3D3D3"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_date"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_date" />
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:background="#D3D3D3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_item"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:background="#D3D3D3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_item"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
     <ImageView
         android:id="@+id/iv_item"
         android:layout_width="200dp"
@@ -34,8 +68,8 @@
         android:id="@+id/tv_item_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="2024-01-21 22:50:57"
         android:padding="5dp"
+        android:text="2024-01-21 22:50:57"
         app:layout_constraintEnd_toEndOf="@+id/tv_item_from"
         app:layout_constraintStart_toStartOf="@+id/tv_item_from"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_from" />

@@ -19,11 +19,10 @@ object NetWorkClient {
                 Log.d("testInterceptor", message)
             }
         })
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-//        if(BuildConfig.DEBUG)
-//            interceptor.level = HttpLoggingInterceptor.Level.BODY
-//        else
-//            interceptor.level = HttpLoggingInterceptor.Level.NONE
+        if(BuildConfig.DEBUG)
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+        else
+            interceptor.level = HttpLoggingInterceptor.Level.NONE
         return OkHttpClient.Builder()
             .connectTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)

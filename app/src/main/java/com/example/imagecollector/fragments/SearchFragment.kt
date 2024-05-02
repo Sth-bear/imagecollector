@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.imagecollector.adapters.SearchFragAdapter
 import com.example.imagecollector.data.ImageItem
 import com.example.imagecollector.data.ImageResponse
@@ -25,7 +26,7 @@ private const val ARG_PARAM1 = "param1"
 class SearchFragment : Fragment() {
     private var param1: String? = null
     private val binding by lazy { FragmentSearchBinding.inflate(layoutInflater) }
-    private val adapter by lazy { SearchFragAdapter() }
+    private val searchAdapter by lazy { SearchFragAdapter() }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +46,16 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sharedPreferences = requireContext().getSharedPreferences("searchFragment", Context.MODE_PRIVATE) // create된 이후 선언해야 requireContext가 가능함.
+        defaultBind()
         btnSearch(sharedPreferences)
         loadSearchData(sharedPreferences)
+    }
+
+    private fun defaultBind() {
+        with(binding.rvSearch) {
+            adapter = searchAdapter
+            layoutManager = GridLayoutManager(requireContext(),2)
+        }
     }
 
     private fun btnSearch(pref: SharedPreferences) {
@@ -69,13 +78,16 @@ class SearchFragment : Fragment() {
     }
 
     private fun communicateNetWork(param: HashMap<String,String>) = lifecycleScope.launch() {
-        val authKey = "KakaoAK 1612baf0771000c88e321cbec59c70c4"
+        val authKey = ""
+
         val responseData = NetWorkClient.searchNetWork.getImage(authKey, param)
         Log.d("testResponseData", responseData.toString())
-//        val itemList = convertToImageItem(responseData.response)
-//        withContext(Dispatchers.Main) {
-//            adapter.listUpdate(itemList)
-//        }
+        val itemList = convertToImageItem(responseData)
+        Log.d("test", "$itemList")
+        withContext(Dispatchers.Main) {
+            searchAdapter.listUpdate(itemList)
+            binding.rvSearch.layoutManager = GridLayoutManager(requireContext(),2)
+        }
 
     }
 

@@ -7,6 +7,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagecollector.data.ImageItem
 import com.example.imagecollector.databinding.ItemSearchBinding
+import com.squareup.picasso.Picasso
 
 class SearchFragAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var itemList = listOf<ImageItem>()
@@ -36,10 +37,14 @@ class SearchFragAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class Holder(val binding: ItemSearchBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(imageItem: ImageItem) {
+            Picasso.get()
+                .load(imageItem.image_url)
+                .fit()
+                .centerCrop()
+                .into(binding.ivItem)
             binding.apply {
                 tvItemDate.text = imageItem.datetime
                 tvItemFrom.text = imageItem.display_sitename
-                ivItem.setImageURI(imageItem.image_url.toUri())
             }
         }
     }
